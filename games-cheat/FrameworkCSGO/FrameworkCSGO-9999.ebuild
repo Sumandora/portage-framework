@@ -17,7 +17,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 DEPEND="
-	app-shells/bash
 	sys-devel/gdb
 "
 RDEPEND="${DEPEND}"
