@@ -1,9 +1,6 @@
 EAPI=8
 
-inherit git-r3
-
-MY_PN=MCFM
-MY_P=${MY_PN}-${PV}
+inherit git-r3 savedconfig
 
 EGIT_REPO_URI="https://github.com/Sumandora/FrameworkCSGO.git"
 EGIT_BRANCH="master"
@@ -21,38 +18,38 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
-	sys-devel/gcc
 	dev-util/cmake
 	media-libs/libsdl2
-	media-libs/mesa
-	dev-util/patchelf
+	virtual/opengl
 	sys-devel/binutils
+	sys-apps/sed
 "
 
-src_compile() {
-	# Force to GCC because Clang doesn't work and nothing else is supported
-	export CC=gcc
-	export CXX=g++
-	export AR="gcc-ar"
-	export NM="gcc-nm"
-	export RANLIB="gcc-ranlib"
+src_prepare() {
+	default
 
-	# Remove additional flags as they are likely to break the cheat
-	export CFLAGS=""
-	export CXXFLAGS=""
-	export LDFLAGS=""
+	restore_config ProjectName
+}
+
+src_compile() {
+	default
 
 	./Build.sh
 }
 
 src_install() {
-	dolib.so Build/libFrameworkCSGO.so
+	default
+
+	save_config ProjectName
+
+	sed -i "s/\$(cat ProjectName)/$(cat ProjectName)/g" Load.sh
+	sed -i '/cp Build\/\$lib_name/d' Load.sh
+
+	newbin Load.sh FrameworkCSGO
+	dolib.so Build/lib$(cat ProjectName).so
 }
 
 pkg_postinst() {
-	einfo "Compiled the cheat and saved it to your libraries"
-	einfo "Injection can be done using any ordinary dlopen injector"
-	einfo "GDB can be used to call dlopen in the csgo application"
-	einfo "The shared object had its soname patched to be"
-	einfo "libMangoHud.so, you might want to rename it"
+	elog "Compiled the cheat and saved it to your libraries"
+	elog "Injection is done by executing FrameworkCSGO"
 }
