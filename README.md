@@ -13,5 +13,5 @@ You can use `emerge @live-rebuild` to rebuild all live ebuilds or `emerge games-
 Consider using [smart-live-rebuild](https://github.com/projg2/smart-live-rebuild) in order to get more automated updating.
 
 ## Injector
-Use the injector from the main repository ([click here](https://github.com/Sumandora/FrameworkCSGO/blob/master/Load.sh)).  
-You will need to modify the path from `Build/libFrameworkCSGO.so` to `/usr/lib64/libFrameworkCSGO.so`.
+The injector will be installed as `FrameworkCSGO`.  
+You likely have to run it with root permissions unless you reconfigured your setup in that regard.
