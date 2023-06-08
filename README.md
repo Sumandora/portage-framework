@@ -15,3 +15,7 @@ Consider using [smart-live-rebuild](https://github.com/projg2/smart-live-rebuild
 ## Injector
 The injector will be installed as `FrameworkCSGO`.  
 You likely have to run it with root permissions unless you reconfigured your setup in that regard.
+
+## System-wide Clang
+Please read [this](https://github.com/Sumandora/FrameworkCSGO#the-situation-with-clang).  
+Portage is able to solve this problem using [package environments](https://wiki.gentoo.org/wiki//etc/portage/package.env).
